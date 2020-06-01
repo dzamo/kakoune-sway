@@ -57,3 +57,26 @@ map global i3 j :i3-new-down<ret> -docstring '↓ new window below'
 # Suggested mapping
 
 #map global user 3 ': enter-user-mode i3<ret>' -docstring 'i3…'
+
+# Sway support for send-text using ydotool:
+try %{ eval %sh{ [ -z "$SWAYSOCK" ] && echo fail " " }
+  hook -once global ModuleLoaded x11-repl %sh{
+    if ! { command -v ydotool && command -v jq && command -v wl-copy && command -v wl-paste; } >/dev/null
+    then echo define-command sway-send-text %{ fail "ydotool, jq, or wl-clipboard missing" }
+    else
+    cat << 'EOF'
+    define-command sway-send-text -docstring "send the selected text to the repl window" %{
+      nop %sh{
+        CUR_ID=$(swaymsg -t get_tree | jq -r "recurse(.nodes[]?) | select(.focused == true).id")
+        echo "$kak_selection" | wl-copy --paste-once --primary
+        swaymsg "[title=kak_repl_window] focus"
+        #ydotool type --key-delay 2 "$kak_selection" >/dev/null 2>&1
+        ydotool key shift+insert >/dev/null 2>&1
+        swaymsg "[con_id=$CUR_ID] focus"
+      }
+    }
+    alias global send-text sway-send-text
+EOF
+    fi
+  }
+}
