@@ -79,10 +79,19 @@ try %{ eval %sh{ [ -z "$SWAYSOCK" ] && echo fail " " }
     then echo define-command sway-send-text %{ fail "ydotool, jq, or wl-clipboard missing" }
     else
     cat << 'EOF'
-    define-command sway-send-text -docstring "send the selected text to the repl window" %{
+    define-command -params .. \
+    -docstring %{sway-send-text [text]: Send text to the REPL window.
+
+    [text]: text to send instead of selection.} \
+    sway-send-text %{
       nop %sh{
+        if [ $# -eq 0 ]; then
+          TEXT="$kak_selection"
+        else
+          TEXT="$*"
+        fi
         CUR_ID=$(swaymsg -t get_tree | jq -r "recurse(.nodes[]?) | select(.focused == true).id")
-        echo "$kak_selection" | wl-copy --paste-once --primary
+        echo "$TEXT" | wl-copy --paste-once --primary
         swaymsg "[title=kak_repl_window] focus"
         #ydotool type --key-delay 2 "$kak_selection" >/dev/null 2>&1
         ydotool key shift+insert >/dev/null 2>&1
