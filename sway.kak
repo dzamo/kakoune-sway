@@ -58,6 +58,20 @@ map global i3 j :i3-new-down<ret> -docstring '↓ new window below'
 
 #map global user 3 ': enter-user-mode i3<ret>' -docstring 'i3…'
 
+# Sway:
+alias global sway-new i3-new
+alias global sway-new-left i3-new-left
+alias global sway-new-right i3-new-right
+alias global sway-new-up i3-new-up
+alias global sway-new-down i3-new-down
+
+declare-user-mode sway
+map global sway n :sway-new<ret> -docstring "new window in the current container"
+map global sway h :sway-new-left<ret> -docstring '← new window on the left'
+map global sway l :sway-new-right<ret> -docstring '→ new window on the right'
+map global sway k :sway-new-up<ret> -docstring '↑ new window above'
+map global sway j :sway-new-down<ret> -docstring '↓ new window below'
+
 # Sway support for send-text using ydotool:
 try %{ eval %sh{ [ -z "$SWAYSOCK" ] && echo fail " " }
   hook -once global ModuleLoaded x11-repl %sh{
