@@ -92,7 +92,7 @@ try %{ eval %sh{ [ -z "$SWAYSOCK" ] && echo fail " " }
         fi
         CUR_ID=$(swaymsg -t get_tree | jq -r "recurse(.nodes[]?) | select(.focused == true).id")
         swaymsg "[title=kak_repl_window] focus" &&
-        echo -n "$TEXT" | wl-copy --paste-once --primary
+        echo -n "$TEXT" | wl-copy --paste-once --primary &&
         ydotool key shift+insert >/dev/null 2>&1 &&
         swaymsg "[con_id=$CUR_ID] focus"
       }
