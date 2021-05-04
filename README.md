@@ -14,8 +14,14 @@ Or via [plug.kak](https://github.com/andreyorst/plug.kak):
 ```
 plug 'mreppen/kakoune-sway' %{
   # Suggested mapping
-  map global user 3 ': enter-user-mode sway<ret>' -docstring 'Sway…'
+  map global user 3 ': enter-user-mode sway<ret>' -docstring 'Sway mode'
 }
+```
+
+As it depends on the `x11` module, add this line to your kakrc:
+
+```
+set-option global windowing_modules 'x11'
 ```
 
 ## Usage

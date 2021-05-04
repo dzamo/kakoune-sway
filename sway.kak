@@ -1,4 +1,4 @@
-# http://swaywm.org
+# https://swaywm.org
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 # see also: tmux.kak
 
