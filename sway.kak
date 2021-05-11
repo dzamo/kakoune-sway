@@ -57,7 +57,10 @@ map global sway j :sway-new-down<ret> -docstring '↓ new window below'
 
 #map global user 3 ': enter-user-mode sway<ret>' -docstring 'sway…'
 
-# Sway support for send-text using ydotool:
+# Sway support for send-text using ydotool
+
+declare-option -docstring "Send <enter> after text." bool repl_send_enter false
+
 try %{ eval %sh{ [ -z "$SWAYSOCK" ] && echo fail " " }
   hook -once global ModuleLoaded x11-repl %sh{
     if ! { command -v ydotool && command -v jq && command -v wl-copy && command -v wl-paste; } >/dev/null
@@ -75,10 +78,14 @@ try %{ eval %sh{ [ -z "$SWAYSOCK" ] && echo fail " " }
         else
           TEXT="$*"
         fi
+
+        PASTE_KEYSTROKE="shift+insert"
+        [ "$kak_opt_repl_send_enter" = "true" ] && PASTE_KEYSTROKE="$PASTE_KEYSTROKE enter"
+
         CUR_ID=$(swaymsg -t get_tree | jq -r "recurse(.nodes[]?) | select(.focused == true).id")
         swaymsg "[title=kak_repl_window] focus" &&
         echo -n "$TEXT" | wl-copy --paste-once --primary &&
-        ydotool key shift+insert >/dev/null 2>&1 &&
+        ydotool key $PASTE_KEYSTROKE >/dev/null 2>&1 &&
         swaymsg "[con_id=$CUR_ID] focus"
       }
     }
