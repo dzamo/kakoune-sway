@@ -48,15 +48,11 @@ If the module [`x11-repl`](https://github.com/mawww/kakoune/blob/master/rc/windo
 
 The method for sending text mirrors that of `x11-repl`, which means copying to the primary clipboard and pasting (`wl-clipboard`) with emulated `shift+insert` (`ydotool`). `jq` is used for parsing Sway data. Any suggestions for improving this are welcome.
 
-Note: Just like `x11-repl`, this finds the correct window by the window name. Some applications, like `fish` will rename the window by default, and thus break this. Therefore, run the repl with `:repl <repl-executable>` to avoid this.
+Note: just like `x11-repl`, this finds the correct window by the window name. Some applications, like `fish` will rename the window by default, and thus break this. Therefore, run the repl with `:repl <repl-executable>` to avoid this.
 
-## Configuration
-
-kakoune-sway declares the following options.
-
-| Name            | Type | Default | Description                                                                       |
-| --------------- | ---- | ------- | --------------------------------------------------------------------------------- |
-| repl_send_enter | bool | false   | When true, text sent to the REPL window will be followed by an \<enter> keystroke. |
+| Switch      | Description                                  |
+| ----------- | -------------------------------------------- |
+| -send-enter | Send a keystroke of \<enter> after the text. |
 
 ## Screenshots
 
