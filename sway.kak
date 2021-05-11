@@ -74,18 +74,18 @@ try %{ eval %sh{ [ -z "$SWAYSOCK" ] && echo fail " " }
     sway-send-text %{
       nop %sh{
         if [ $# -eq 0 ]; then
-          TEXT="$kak_selection"
+          text="$kak_selection"
         else
-          TEXT="$*"
+          text="$*"
         fi
 
-        PASTE_KEYSTROKE="shift+insert"
-        [ "$kak_opt_repl_send_enter" = "true" ] && PASTE_KEYSTROKE="$PASTE_KEYSTROKE enter"
+        paste_keystroke="shift+insert"
+        [ "$kak_opt_repl_send_enter" = "true" ] && paste_keystroke="$paste_keystroke enter"
 
         CUR_ID=$(swaymsg -t get_tree | jq -r "recurse(.nodes[]?) | select(.focused == true).id")
         swaymsg "[title=kak_repl_window] focus" &&
-        echo -n "$TEXT" | wl-copy --paste-once --primary &&
-        ydotool key $PASTE_KEYSTROKE >/dev/null 2>&1 &&
+        echo -n "$text" | wl-copy --paste-once --primary &&
+        ydotool key $paste_keystroke >/dev/null 2>&1 &&
         swaymsg "[con_id=$CUR_ID] focus"
       }
     }
