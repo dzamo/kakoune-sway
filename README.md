@@ -52,7 +52,7 @@ Note: just like `x11-repl`, this finds the correct window by the window name. So
 
 | Switch      | Description                                  |
 | ----------- | -------------------------------------------- |
-| -send-enter | Send a keystroke of \<enter> after the text. |
+| -send-enter | Send a keystroke of \<enter> after the text. NOTE: Could be replaced if a similar feature is adopted in default plugins. |
 
 ## Screenshots
 
