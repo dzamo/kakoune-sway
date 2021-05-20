@@ -36,7 +36,7 @@ set-option global windowing_modules 'x11'
 - `sway-new-up` ↑ new window above
 - `sway-new-down` ↓ new window below
 
-New windows display a *cloned view*: same buffer, same line.
+New windows display a _cloned view_: same buffer, same line.
 
 A `sway` user-mode is also declared. With the mapping in the Install section above:
 
@@ -48,7 +48,11 @@ If the module [`x11-repl`](https://github.com/mawww/kakoune/blob/master/rc/windo
 
 The method for sending text mirrors that of `x11-repl`, which means copying to the primary clipboard and pasting (`wl-clipboard`) with emulated `shift+insert` (`ydotool`). `jq` is used for parsing Sway data. Any suggestions for improving this are welcome.
 
-Note: Just like `x11-repl`, this finds the correct window by the window name. Some applications, like `fish` will rename the window by default, and thus break this. Therefore, run the repl with `:repl <repl-executable>` to avoid this.
+Note: just like `x11-repl`, this finds the correct window by the window name. Some applications, like `fish` will rename the window by default, and thus break this. Therefore, run the repl with `:repl <repl-executable>` to avoid this.
+
+| Switch      | Description                                  |
+| ----------- | -------------------------------------------- |
+| -send-enter | Send a keystroke of \<enter> after the text. NOTE: Could be replaced if a similar feature is adopted in default plugins. |
 
 ## Screenshots
 
